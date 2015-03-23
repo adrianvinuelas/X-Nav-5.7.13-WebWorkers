@@ -2,21 +2,18 @@
 <html>
  <head>
   <title>Ejercicio con WebWorkers</title>
-
+  <script src="jQuery.js"></script>
+  <script src="5.7.13.js"></script>
+  
   <script>
-function buscarPrimos() {
-  var n = 1;
-  primelist = "";
-  search: while (n<parseInt(document.getElementById("formulario").input.value)) {
-    n += 1;
-    for (var i = 2; i <= Math.sqrt(n); i += 1)
-      if (n % i == 0)
-        continue search;
-    // found a prime!
-    primelist += " " + n;
-    document.getElementById('result').innerHTML = primelist;
-  }
-}
+	function buscarPrimos() {
+	  console.log("entra aqui");
+	  var worker = new Worker("5.7.13.js");
+	  worker.postMessage(parseInt(document.getElementById("formulario").input.value));
+	  worker.onmessage = function(event) {
+		document.getElementById('result').innerHTML = event.data;
+	  }
+	}
   </script>
 
 
